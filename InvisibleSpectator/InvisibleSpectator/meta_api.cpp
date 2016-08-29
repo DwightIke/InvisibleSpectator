@@ -26,7 +26,7 @@ int g_iTeamInfo, g_iTeamInfoArg1;
 // linux: SV_FullClientUpdate
 void ResetUserModel(const int iPlayer);
 void SV_FullClientUpdate_f_Call() {
-	SERVER_PRINT("SV_FullClientUpdate called \n");
+	//SERVER_PRINT("SV_FullClientUpdate called \n");
 	
 	
 	int iPlayer = ENGINE_CURRENT_PLAYER() - 1;
