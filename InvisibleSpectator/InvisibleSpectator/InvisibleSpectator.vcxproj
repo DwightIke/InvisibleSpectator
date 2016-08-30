@@ -79,7 +79,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\amx;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\cl_dll;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\Metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -99,7 +99,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\amx;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\sdk\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\cl_dll;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\Metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,6 +127,8 @@
     <ClInclude Include="amxxmodule.h" />
     <ClInclude Include="chooker.h" />
     <ClInclude Include="moduleconfig.h" />
+    <ClInclude Include="quake_server.h" />
+    <ClInclude Include="SVS_Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

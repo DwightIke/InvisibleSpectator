@@ -32,5 +32,11 @@
     <ClInclude Include="moduleconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SVS_Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="quake_server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

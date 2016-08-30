@@ -1,5 +1,6 @@
 #include "chooker.h"
 #include "amxxmodule.h"
+#include "SVS_Util.h"
 
 #define SVC_UPDATEUSERINFO	13
 // cs team offset
@@ -16,7 +17,11 @@ const int CS_TEAM_SPECTATOR = 0;
 CHooker HookerClass;
 CHooker *Hooker = &HookerClass;
 
-typedef void(*SV_FullClientUpdate)(int * client, int *buf);
+client_t *gclientPlayers[33];
+server_static_t *g_pEGV_svs;
+server_t *g_pEGV_sv;
+
+typedef void(*SV_FullClientUpdate)(client_t * client, sizebuf_t *size);
 SV_FullClientUpdate SV_FullClientUpdate_f;
 CFunc *SV_FullClientUpdate_f_hook = NULL;
 
@@ -25,11 +30,11 @@ int g_iTeamInfo, g_iTeamInfoArg1;
 // win old: 0x55 0x8B 0xEC 0x81 0xEC ? ? ? ? 0x53 0x8B 0x1D ? ? ? ? 0x56 0x57 0x8B 0x7D ? 0xB8
 // linux: SV_FullClientUpdate
 void ResetUserModel(const int iPlayer);
-void SV_FullClientUpdate_f_Call() {
+void SV_FullClientUpdate_f_Call(client_t * client, sizebuf_t *size) {
 	//SERVER_PRINT("SV_FullClientUpdate called \n");
 	
-	
-	int iPlayer = ENGINE_CURRENT_PLAYER() - 1;
+	int iPlayer = GET_TARGETID_BY_ENGCLIENT_ENTINDEX(client);
+	// MH_UPDATE_CLIENT
 	if (!g_bInvisiblePlayers[iPlayer])
 		return;
 	MESSAGE_BEGIN(MSG_ALL, SVC_UPDATEUSERINFO);
@@ -61,7 +66,8 @@ bool CreateHook_SV_FullClientUpdate() {
 }
 
 void OnPluginsLoaded(void) {
-	g_bPatched = CreateHook_SV_FullClientUpdate();
+	g_bPatched = CreateHook_SV_FullClientUpdate() && getHost(g_pEGV_svs);
+	setClientPlayers();
 }
 
 int RegUserMsg_Post(const char *pName, int iSize) {
