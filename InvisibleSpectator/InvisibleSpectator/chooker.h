@@ -1,6 +1,6 @@
 
 /***
-*  Copyright 2012 Carlos Sola, Son of a Bitch!
+*  Copyright 2012 Carlos Sola.
 *
 *  This file is part of CHooker library.
 *
@@ -30,6 +30,9 @@ CHOOKER_SIG_CALL custom_array[] =
 #ifndef _CHOOKER_H_
 #define _CHOOKER_H_
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <string.h>
 
 #if defined __linux__
@@ -41,12 +44,14 @@ CHOOKER_SIG_CALL custom_array[] =
 #include <unistd.h>
 #include <errno.h>
 
-#ifndef _uint32_
-#define _uint32_	unsigned int
+#ifndef uint32
+//#define uint32	unsigned int
+typedef unsigned int uint32;
 #endif
 
-#ifndef _byte_
-#define _byte_	unsigned char
+#ifndef byte
+//#define byte	unsigned char
+typedef unsigned char byte;
 #endif
 
 #ifndef FALSE
@@ -66,12 +71,12 @@ inline void* Align(void* address)
 	return (void*)((long)address & ~(PAGESIZE - 1));
 }
 
-inline _uint32_ IAlign(_uint32_ address)
+inline uint32 IAlign(uint32 address)
 {
 	return (address & ~(PAGESIZE - 1));
 }
 
-inline _uint32_ IAlign2(_uint32_ address)
+inline uint32 IAlign2(uint32 address)
 {
 	return (IAlign(address) + PAGESIZE);
 }
@@ -100,6 +105,9 @@ static int dl_callback(struct dl_phdr_info *info, size_t size, void *data);
 #define GET_EAX_POINTER(x) __asm mov x, edx;
 #define PAGESIZE 4096
 
+typedef int DUMMY;
+#define DUMMY_VAL 0
+
 #endif
 
 #define GET_ORIG_FUNC(x) CFunc *x; GET_EAX_POINTER(x);
@@ -120,9 +128,9 @@ typedef enum
 	AnyByte
 } SignatureEntryType;
 
-#define CHOOKER_NONE	0 << 0
-#define CHOOKER_FOUND	1 << 0
-#define CHOOKER_PATCHED	2 << 0
+#define CHOOKER_NONE	(0<<0)
+#define CHOOKER_FOUND	(1<<0)
+#define CHOOKER_PATCHED	(2<<0)
 
 typedef struct {
 	const char *sig;
@@ -182,63 +190,63 @@ public:
 #endif
 	}
 
-	/*void SetupSignature( char *src )
+	void SetupSignature(char *src)
 	{
-	int len = strlen( src );
+		int len = strlen(src);
 
-	unsigned char *sig = new unsigned char[ len + 1 ];
+		unsigned char *sig = new unsigned char[len + 1];
 
-	signature = new unsigned char[ len ];
-	signatureData = new unsigned char[ len ];
+		signature = new unsigned char[len];
+		signatureData = new unsigned char[len];
 
-	unsigned char *s1 = signature;
-	unsigned char *s2 = signatureData;
+		unsigned char *s1 = signature;
+		unsigned char *s2 = signatureData;
 
-	sigsize = 0;
+		sigsize = 0;
 
-	memcpy( sig, src, len + 1 );
+		memcpy(sig, src, len + 1);
 
-	char *tok = strtok( ( char* )sig, "," );
+		char *tok = strtok((char*)sig, ",");
 
-	while( tok )
-	{
-	sigsize++;
+		while (tok)
+		{
+			sigsize++;
 
-	if( strstr( tok, "0x" ) )
-	{
-	*s1 = strtol( tok, NULL, 0 );
-	*s2 = SpecificByte;
+			if (strstr(tok, "0x"))
+			{
+				*s1 = strtol(tok, NULL, 0);
+				*s2 = SpecificByte;
 
-	*s1++;
-	*s2++;
+				*s1++;
+				*s2++;
+			}
+			else
+			{
+				*s1 = 0xff;
+				*s1++;
+
+				switch (*tok)
+				{
+				case '*':
+				{
+					*s2 = AnyByte;
+					break;
+				}
+				case '?':
+				{
+					*s2 = AnyByteOrNothing;
+					break;
+				}
+				}
+
+				*s2++;
+			}
+
+			tok = strtok(NULL, ",");
+		}
+
+		delete[] sig;
 	}
-	else
-	{
-	*s1 = 0xff;
-	*s1++;
-
-	switch( *tok )
-	{
-	case '*':
-	{
-	*s2 = AnyByte;
-	break;
-	}
-	case '?':
-	{
-	*s2 = AnyByteOrNothing;
-	break;
-	}
-	}
-
-	*s2++;
-	}
-
-	tok = strtok( NULL, "," );
-	}
-
-	delete[] sig;
-	}*/
 
 	BOOL CompareSig(unsigned char *address, unsigned char *signature, unsigned char *signaturedata, int length)
 	{
@@ -254,7 +262,7 @@ public:
 			}
 			case SpecificByte:
 			{
-				return ((_byte_)*address == (_byte_)*signature);
+				return ((byte)*address == (byte)*signature);
 			}
 			}
 		}
@@ -264,8 +272,8 @@ public:
 			{
 			case SpecificByte:
 			{
-				//printf("\tSpecificByte:\t0x%x 0x%x 0x%x 0x%x 0x%x %d\n", address, signature, *signature, *address, *signaturedata, ( *address != ( _byte_ )*signature ));
-				if ((_byte_)*address != (_byte_)*signature)
+				//printf("\tSpecificByte:\t0x%x 0x%x 0x%x 0x%x 0x%x %d\n", address, signature, *signature, *address, *signaturedata, ( *address != ( byte )*signature ));
+				if ((byte)*address != (byte)*signature)
 					return FALSE;
 				else
 					return CompareSig(address + 1, signature + 1, signaturedata + 1, length - 1);
@@ -302,6 +310,9 @@ public:
 
 	void *SearchSignatureByAddress(char *sig, void* libaddr)
 	{
+		if (!sig)
+			return NULL;
+
 		void *ret;
 		baseadd = endadd = NULL;
 		//			if(!libaddr)
@@ -319,7 +330,7 @@ public:
 
 	void *SearchSignature(char *signeedle)
 	{
-		//SetupSignature( signeedle );
+		SetupSignature(signeedle);
 
 		void *ret = NULL;
 
@@ -383,17 +394,17 @@ public:
 
 #else
 
-		/*HMODULE module;
+		HMODULE module;
 
-		if( GetModuleHandleEx( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, ( LPCSTR )libaddr, &module ) )
+		if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCSTR)libaddr, &module))
 		{
-		void* s = GetProcAddress( module, symbol );
+			void* s = GetProcAddress(module, symbol);
 
-		if( s )
-		{
-		return (void *)s;
+			if (s)
+			{
+				return (void *)s;
+			}
 		}
-		}*/
 
 #endif
 
@@ -402,7 +413,7 @@ public:
 
 	void *SearchSymbolByLibrary(char *symbol, char *libname)
 	{
-		//printf("SearchSymbolByLibrary: %s libname:%s\n", symbol, libname);
+		printf("SearchSymbolByLibrary: %s libname:%s\n", symbol, libname);
 		if (!libname)
 			GetLibraryFromAddress(NULL);
 		else
@@ -430,23 +441,23 @@ public:
 
 #else
 
-		/*HMODULE module;
+		HMODULE module;
 
-		if( GetModuleHandleEx( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, ( LPCSTR )libaddr, &module ) )
+		if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCSTR)libaddr, &module))
 		{
-		HANDLE process =  GetCurrentProcess();
-		_MODULEINFO moduleInfo;
+			HANDLE process = GetCurrentProcess();
+			_MODULEINFO moduleInfo;
 
-		if( GetModuleInformation( process, module, &moduleInfo, sizeof moduleInfo ) )
-		{
-		CloseHandle( process );
+			if (GetModuleInformation(process, module, &moduleInfo, sizeof moduleInfo))
+			{
+				CloseHandle(process);
 
-		baseadd = ( char* )moduleInfo.lpBaseOfDll;
-		endadd = ( char* )( baseadd + moduleInfo.SizeOfImage );
+				baseadd = (char*)moduleInfo.lpBaseOfDll;
+				endadd = (char*)(baseadd + moduleInfo.SizeOfImage);
 
-		return ( void* )baseadd;
+				return (void*)baseadd;
+			}
 		}
-		}*/
 
 		return NULL;
 
@@ -478,7 +489,7 @@ public:
 		DWORD	cbNeeded;
 
 		unsigned int	i;
-		//static char msg[100];
+		static char		msg[100];
 
 		hProcess = GetCurrentProcess();
 
@@ -536,6 +547,7 @@ public:
 
 };
 
+// TO DO: Functions to get original address and also detour address by function detour.
 class CFunc
 {
 private:
@@ -596,7 +608,7 @@ public:
 			p = (unsigned int*)(patched + 8);
 			*p = (unsigned int)dst - (unsigned int)address - 12;
 
-			if (hook && Patch())
+			if (hook && Enable())
 			{
 				return address;
 			}
@@ -612,7 +624,7 @@ public:
 		return address;
 	}
 
-	BOOL Patch()
+	BOOL Enable()
 	{
 		if (!ispatched)
 		{
@@ -626,7 +638,7 @@ public:
 		return ispatched;
 	}
 
-	BOOL Restore()
+	BOOL Disable()
 	{
 		if (ispatched)
 		{
@@ -691,7 +703,7 @@ public:
 		while (sigs[c].sig)
 		{
 			address = memFunc->SearchSignatureByAddress((char*)sigs[c].sig, libaddr);
-			//printf("SIG: %d\t%s\t0x%08x\n", sigs[c].offset, sigs[c].sig, address);
+			printf("SIG: %d\t%s\t0x%08x\n", sigs[c].offset, sigs[c].sig, address);
 			if (address)
 			{
 				sigs[c].result |= CHOOKER_FOUND;
@@ -727,7 +739,7 @@ public:
 		while (sigs[c].sig)
 		{
 			address = memFunc->SearchSignatureByLibrary((char*)sigs[c].sig, libname);
-			//printf("SIG: %d\t%s\t0x%08x\n", sigs[c].offset, sigs[c].sig, address);
+			printf("SIG: %d\t%s\t0x%08x\n", sigs[c].offset, sigs[c].sig, address);
 			if (address)
 			{
 				sigs[c].result |= CHOOKER_FOUND;
@@ -775,6 +787,7 @@ public:
 			return (Tret)memFunc->SearchSignatureByAddress((char *)data, libaddr);
 	}
 
+	// Sucks on Linux compiler, lazy to find the fix. Besides, I don't use that format.
 	/*template <typename Tret, typename Tdata, typename Tlib>
 	Tret MemorySearch(Tdata const data, Tlib const libname, BOOL issym)
 	{
@@ -840,6 +853,12 @@ public:
 
 		return obj->func;
 	}
+
+	// Test.
+	/*CFunc* GetOriginalByDetour(void* dst)
+	{
+
+	}*/
 };
 
 #ifdef __linux__
@@ -862,10 +881,10 @@ static int dl_callback(struct dl_phdr_info *info, size_t size, void *data)
 		{
 			if (info->dlpi_phdr[i].p_memsz && IAlign(info->dlpi_phdr[i].p_vaddr))
 			{
-				if (ismain && (_uint32_)obj->baseadd > IAlign(info->dlpi_phdr[i].p_vaddr))
+				if (ismain && (uint32)obj->baseadd > IAlign(info->dlpi_phdr[i].p_vaddr))
 					obj->baseadd = (char*)IAlign(info->dlpi_phdr[i].p_vaddr);
 
-				if ((_uint32_)obj->endadd < (info->dlpi_phdr[i].p_vaddr + info->dlpi_phdr[i].p_memsz))
+				if ((uint32)obj->endadd < (info->dlpi_phdr[i].p_vaddr + info->dlpi_phdr[i].p_memsz))
 					obj->endadd = (char*)IAlign2((info->dlpi_phdr[i].p_vaddr + info->dlpi_phdr[i].p_memsz));
 			}
 		}

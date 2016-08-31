@@ -80,6 +80,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\cl_dll;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\Metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,6 +101,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\cl_dll;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\common;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\dlls;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\engine;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\Metamod;C:\Users\Cosmin\Desktop\Visual CPP Proj\InvisibleSpectator\InvisibleSpectator\InvisibleSpectator\SDK2\pm_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,9 +128,9 @@
   <ItemGroup>
     <ClInclude Include="amxxmodule.h" />
     <ClInclude Include="chooker.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="moduleconfig.h" />
-    <ClInclude Include="quake_server.h" />
-    <ClInclude Include="SVS_Util.h" />
+    <ClInclude Include="engine_structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

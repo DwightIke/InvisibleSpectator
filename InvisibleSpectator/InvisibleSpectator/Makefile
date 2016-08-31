@@ -10,9 +10,9 @@ EXTRA_LIBDIRS_WIN32 = -Lextra/lib_win32
 
 EXTRA_INCLUDEDIRS = -Iextra/include
 
-EXTRA_FLAGS = -Dstricmp=strcasecmp -D__linux__=1
+EXTRA_FLAGS = -Dstricmp=strcasecmp
 
-SDK=sdk/
+SDK=SDK2
 SRCDIR=.
 
 OBJDIR_LINUX=obj.linux
@@ -128,7 +128,7 @@ CCO = -O2 -fomit-frame-pointer -funroll-loops -fno-strict-aliasing -pipe
 
 CCOPT = $(CCO) $(CCOPT_ARCH) -Wno-write-strings -fno-exceptions -fno-rtti -DNDEBUG -DJITORNOT
 
-INCLUDEDIRS= -I. -I$(SDK)/metamod -I$(SDK)/common -I$(SDK)/dlls -I$(SDK)/engine -I$(SDK)/pm_shared $(EXTRA_INCLUDEDIRS)
+INCLUDEDIRS= -I. -I$(SDK)/Metamod -I$(SDK)/common -I$(SDK)/dlls -I$(SDK)/engine -I$(SDK)/pm_shared $(EXTRA_INCLUDEDIRS)
 ODEF=-DOPT_TYPE=\"optimized\"
 CFLAGS=-Wall -Wno-unknown-pragmas
 CFLAGS:=$(CCOPT) $(CFLAGS) $(ODEF) $(EXTRA_FLAGS)
