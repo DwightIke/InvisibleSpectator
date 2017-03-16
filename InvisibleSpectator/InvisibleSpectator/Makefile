@@ -1,5 +1,7 @@
 # Console command(s) for compiling on Cygwin/MinGW:
 #   Example: make
+# IMPORTANT NOTE: This script doesn't optimize the extension for AMXX Addon.
+# VERY IMPORTANT NOTE: This script is writted for a cross gcc/g++ compiler. It will never work with default gcc/g++ compiler.
 
 MODNAME = InvisibleSpectator
 SRCFILES = amxxmodule.cpp meta_api.cpp
